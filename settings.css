@@ -1,0 +1,21 @@
+.settings-content-row-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.timeout-container {
+  flex: 1;
+}
+
+.lang-subtype-java-style-settings-config-container {
+  flex: 1;
+}
+
+.test-case-controls-container {
+  align-items: end;
+}
+
+.test-case-add-case-container {
+  flex: 1;
+}

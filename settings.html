@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Settings</title>
+  <link type="text/css" rel="stylesheet" href="../assessment-common/settings.css">
+  <link rel="stylesheet" href="./settings.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/cash/8.1.5/cash.min.js"></script>
+  <script type="text/javascript" src="../assessment-common/helper.js"></script>
+  <script type="text/javascript" src="./settings.js"></script>
+</head>
+<body>
+  <div id="settings-content" class="codio-assessment-settings-content">
+    <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container">
+      <label for="instructions" class="codio-assessment-settings-form-label">Instructions</label>
+      <textarea id="instructions" name="instructions" rows="4" class="codio-assessment-settings-form-input"></textarea>
+    </div>
+    <div class="settings-content-row-container">
+      <div class="codio-assessment-settings-form-control codio-assessment-settings-form-select-container">
+        <label for="languageType" class="codio-assessment-settings-form-label">Language type</label>
+        <div class="codio-assessment-settings-form-select-wrapper">
+          <select id="languageType" class="codio-assessment-settings-form-select">
+            <option value="custom">Custom</option>
+            <option value="ruby">Ruby</option>
+            <option value="java">Java</option>
+            <option value="python">Python</option>
+            <option value="javascript">JavaScript</option>
+          </select>
+        </div>
+      </div>
+      <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container timeout-container">
+        <label for="timeout" class="codio-assessment-settings-form-label">Timeout</label>
+        <input id="timeout" name="timeout" class="codio-assessment-settings-form-input" type="number"/>
+      </div>
+    </div>
+    <div class="custom-container hide">
+      <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container">
+        <label for="customCommand" class="codio-assessment-settings-form-label">Command</label>
+        <input id="customCommand" name="customCommand" class="codio-assessment-settings-form-input"/>
+      </div>
+    </div>
+    <div class="ruby-container hide">
+      <div class="codio-assessment-settings-form-control codio-assessment-settings-form-select-container lang-subtype-container">
+        <label for="rubyLangSubtype" class="codio-assessment-settings-form-label">Language assessment subtype</label>
+        <div class="codio-assessment-settings-form-select-wrapper">
+          <select id="rubyLangSubtype" class="codio-assessment-settings-form-select">
+            <option value="style">Rubocop (style)</option>
+            <option value="rspec">RSpec (tests)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="java-container hide">
+      <div class="codio-assessment-settings-form-control codio-assessment-settings-form-select-container lang-subtype-container">
+        <label for="javaLangSubtype" class="codio-assessment-settings-form-label">Language assessment subtype</label>
+        <div class="codio-assessment-settings-form-select-wrapper">
+          <select id="javaLangSubtype" class="codio-assessment-settings-form-select">
+            <option value="style">CheckStyle</option>
+            <option value="junit">JUnit (tests)</option>
+          </select>
+        </div>
+      </div>
+      <div class="lang-subtype-settings-container lang-subtype-java-style-settings settings-content-row-container hide">
+        <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container lang-subtype-java-style-settings-config-container">
+          <label for="javaStyleConfigPath" class="codio-assessment-settings-form-label">Config path</label>
+          <input id="javaStyleConfigPath" name="javaStyleConfigPath" class="codio-assessment-settings-form-input"/>
+        </div>
+        <div class="codio-assessment-settings-form-control codio-assessment-settings-form-select-container lang-subtype-container">
+          <label for="javaCheckStyleVersion" class="codio-assessment-settings-form-label">CheckStyle version</label>
+          <div class="codio-assessment-settings-form-select-wrapper">
+            <select id="javaCheckStyleVersion" class="codio-assessment-settings-form-select">
+              <option value="10.12">Checkstyle v10.12(JRE 11 and above)</option>
+              <option value="8.24" selected="">Checkstyle v8.24(JRE 8 and above)</option>
+              <option value="8.9">Checkstyle v8.9(JRE 8)</option>
+              <option value="6.6">Checkstyle v6.6(JRE 6 and 7)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="lang-subtype-settings-container lang-subtype-java-junit-settings settings-content-row-container hide">
+        <div class="settings-content-row-container">
+          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-select-container lang-subtype-container">
+            <label for="javaJunitVersion" class="codio-assessment-settings-form-label">JUnit version</label>
+            <div class="codio-assessment-settings-form-select-wrapper">
+              <select id="javaJunitVersion" class="codio-assessment-settings-form-select">
+                <option value="5.10.0">JUnit5 v5.10.0</option>
+                <option value="5">JUnit5 v5.6.1</option>
+                <option value="4.13.2">JUnit4 v4.13.2</option>
+                <option value="4" selected="">JUnit4 v4.12</option>
+              </select>
+            </div>
+          </div>
+          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container lang-subtype-style-settings-config-container">
+            <label for="javaJunitSourcePath" class="codio-assessment-settings-form-label">JUnit source path</label>
+            <input id="javaJunitSourcePath" name="javaJunitSourcePath" class="codio-assessment-settings-form-input"/>
+          </div>
+        </div>
+        <div class="settings-content-row-container">
+          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container lang-subtype-style-settings-config-container">
+            <label for="javaJunitTestsSourcePath" class="codio-assessment-settings-form-label">Tests source path</label>
+            <input id="javaJunitTestsSourcePath" name="junitTestsSourcePath" class="codio-assessment-settings-form-input"/>
+          </div>
+          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container lang-subtype-style-settings-config-container">
+            <label for="javaJunitLibraryPath" class="codio-assessment-settings-form-label">Library path</label>
+            <input id="javaJunitLibraryPath" name="javaJunitLibraryPath" class="codio-assessment-settings-form-input"/>
+          </div>
+        </div>
+        <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container lang-subtype-style-settings-config-container">
+          <label for="javaJunitWorkingDirectory" class="codio-assessment-settings-form-label">Working directory</label>
+          <input id="javaJunitWorkingDirectory" name="javaJunitWorkingDirectory" class="codio-assessment-settings-form-input"/>
+        </div>
+      </div>
+    </div>
+    <div class="python-container hide">
+      <div class="codio-assessment-settings-form-control codio-assessment-settings-form-select-container lang-subtype-container">
+        <label for="pythonLangSubtype" class="codio-assessment-settings-form-label">Language assessment subtype</label>
+        <div class="codio-assessment-settings-form-select-wrapper">
+          <select id="pythonLangSubtype" class="codio-assessment-settings-form-select">
+            <option value="style">PyCodeStyle</option>
+            <option value="unittest">UnitTest</option>
+          </select>
+        </div>
+      </div>
+      <div class="lang-subtype-settings-container lang-subtype-python-unittest-settings hide">
+        <div class="settings-content-row-container">
+          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container lang-subtype-style-settings-config-container">
+            <label for="pythonUnittestExecutable" class="codio-assessment-settings-form-label">Python executable</label>
+            <input id="pythonUnittestExecutable" name="pythonUnittestExecutable" class="codio-assessment-settings-form-input"/>
+          </div>
+          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container lang-subtype-style-settings-config-container">
+            <label for="pythonUnittestWorkingDirectory" class="codio-assessment-settings-form-label">Python working directory</label>
+            <input id="pythonUnittestWorkingDirectory" name="pythonUnittestWorkingDirectory" class="codio-assessment-settings-form-input"/>
+          </div>
+        </div>
+        <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container lang-subtype-style-settings-config-container">
+          <label for="pythonUnittestStudentFolder" class="codio-assessment-settings-form-label">Student folder</label>
+          <input id="pythonUnittestStudentFolder" name="pythonUnittestStudentFolder" class="codio-assessment-settings-form-input"/>
+        </div>
+      </div>
+    </div>
+    <div class="javascript-container hide">
+      <div class="codio-assessment-settings-form-control codio-assessment-settings-form-select-container lang-subtype-container">
+        <label for="javascriptLangSubtype" class="codio-assessment-settings-form-label">Language assessment subtype</label>
+        <div class="codio-assessment-settings-form-select-wrapper">
+          <select id="javascriptLangSubtype" class="codio-assessment-settings-form-select">
+            <option value="jshint">JSHint (style)</option>
+            <option value="jslint">JSLint (style)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="test-case-container">
+      <div class="settings-content-row-container test-case-controls-container">
+        <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container test-case-add-case-container">
+          <label for="addCase" class="codio-assessment-settings-form-label">Add case</label>
+          <input id="addCase" name="addCase" class="codio-assessment-settings-form-input"/>
+        </div>
+        <button class='add-case-btn codio-assessment-settings-button codio-assessment-settings-button--secondary'>Add case</button>
+      </div>
+      <div class="test-case-list"></div>
+    </div>
+  </div>
+</body>
+</html>
