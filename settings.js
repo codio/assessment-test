@@ -31,9 +31,52 @@
     } catch {}
   }
 
+  const onSubtypeChanged = (language, subtype) => {
+    $('.lang-subtype-settings-container').addClass('hide')
+    $(`.lang-subtype-${language}-${subtype}-settings`).removeClass('hide')
+  }
+
+  const onLanguageChanged = (language) => {
+    $('.language-settings-container').addClass('hide')
+    $(`.${language}-container`).removeClass('hide')
+    const subtype = $(`#${language}LangSubtype`).val()
+    onSubtypeChanged(language, subtype)
+  }
+
+  const bindEvents = () => {
+    $('#languageType').on('change', function () {
+      const languageType = $(this).val();
+      onLanguageChanged(languageType);
+    })
+    $('.lang-subtype-select').on('change', function () {
+      const langSubtype = $(this).val();
+      onSubtypeChanged($('#languageType').val(), langSubtype);
+    })
+
+    // $("html").on("dragover", function(event) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    //   console.log('dragover', event);
+    // });
+    //
+    // $("html").on("dragleave", function(event) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    //   console.log('dragover', event);
+    // });
+
+    $("html").on("drop", function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log('drop', event);
+    });
+  }
+
   const onLoad = async () => {
     window.codioAssessmentsHelper.registerMessageListener(processMessage)
     window.codioAssessmentsHelper.send(window.codioAssessmentsHelper.METHODS.GET_SETTINGS)
+
+    bindEvents()
   }
 
   window.addEventListener('load', onLoad);
