@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="./settings.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/cash/8.1.5/cash.min.js"></script>
   <script type="text/javascript" src="../assessment-common/helper.js"></script>
+  <script type="text/javascript" src="./java-grammar.js"></script>
   <script type="text/javascript" src="./settings.js"></script>
 </head>
 <body>
@@ -37,6 +38,9 @@
       <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container">
         <label for="customCommand" class="codio-assessment-settings-form-label">Command</label>
         <input id="customCommand" name="customCommand" class="codio-assessment-settings-form-input"/>
+      </div>
+      <div class="secure-folder-help-block hide">
+        Script will be executed isolated from user container <a href='https://docs.codio.com/instructors/authoring/assessments/auto-grade-scripts.html#secure-scripts' target='_blank'>click here</a>
       </div>
     </div>
     <div class="language-settings-container ruby-container hide">
@@ -152,8 +156,8 @@
     <div class="test-case-container">
       <div class="settings-content-row-container test-case-controls-container">
         <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container test-case-add-case-container">
-          <label for="addCase" class="codio-assessment-settings-form-label">Add case</label>
-          <input id="addCase" name="addCase" class="codio-assessment-settings-form-input"/>
+          <label for="newCasePath" class="codio-assessment-settings-form-label">Add case</label>
+          <input id="newCasePath" name="newCasePath" class="codio-assessment-settings-form-input"/>
         </div>
         <button class='add-case-btn codio-assessment-settings-button codio-assessment-settings-button--secondary'>Add case</button>
       </div>

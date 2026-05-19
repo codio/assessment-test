@@ -1,4 +1,38 @@
 (function () {
+  const LANG_TYPES = {
+    JAVA: 'java',
+    CUSTOM: 'custom',
+    RUBY: 'ruby',
+    PYTHON: 'python',
+    JAVASCRIPT: 'javascript'
+  }
+
+  const SUBTYPES_BY_LANG = {
+    [LANG_TYPES.JAVA]: {
+      STYLE: 'style',
+      JUNIT: 'junit'
+    },
+    [LANG_TYPES.RUBY]: {
+      STYLE: 'style',
+      RSPEC: 'rspec'
+    },
+    [LANG_TYPES.PYTHON]: {
+      STYLE: 'style',
+      UNITTEST: 'unittest'
+    },
+    [LANG_TYPES.JAVASCRIPT]: {
+      JSHINT: 'jshint',
+      JSLINT: 'jslint'
+    }
+  }
+
+  const EXTENSIONS_BY_TYPE = {
+    [LANG_TYPES.JAVA]: ['java'],
+    [LANG_TYPES.RUBY]: ['rb'],
+    [LANG_TYPES.PYTHON]: ['py'],
+    [LANG_TYPES.JAVASCRIPT]: ['js']
+  }
+
   const collectSettings = () => {
     const instructions = $('#instructions').val()
     const timeout = parseInt($('#timeout').val(), 10);
@@ -13,7 +47,7 @@
 
   const applySettings = (settings = {}) => {
     $('#instructions').val(settings.instructions || '');
-    $('#timeout').val(settings.timeout || '');
+    $('#timeout').val(settings.timeout || '40');
   }
 
   const processMessage = (jsonData) => {
@@ -43,6 +77,48 @@
     onSubtypeChanged(language, subtype)
   }
 
+  const addParsedTestCase = (path, info) => {
+
+  }
+
+  const addTestCase = async (path) => {
+    if ($(`.test-case-item[data-path="${path}"]`)) {
+      // todo already added warning
+      return
+    }
+    try {
+      const {content} = await window.codioAssessmentsHelper.sendAndWait(
+        window.codioAssessmentsHelper.METHODS.GET_FILE_CONTENT, {path}
+      )
+      const langType = $('#languageType').val()
+      if (EXTENSIONS_BY_TYPE[langType]) {
+        return
+      }
+      const subtype = $(`${langType}LangSubtype`).val()
+      const ext = path.split('.').pop()
+      if (langType === LANG_TYPES.JAVA && subtype === 'style' && ext === 'xml') {
+        $('#javaStyleConfigPath').val(path)
+        return
+      }
+      if (!EXTENSIONS_BY_TYPE[langType].includes(ext)) {
+        // todo error 'Incorrect file type, should be: ' + typeToExtension[type].join(' ')
+        return
+      }
+      if (LANG_TYPES.JAVA && subtype === SUBTYPES_BY_LANG.JAVA.STYLE) {
+        try {
+          const info = window.codioTestAssessment.javaGrammar.getJavaInfo(path, content)
+          addParsedTestCase(path, info)
+        } catch (e) {
+          // todo show errors
+        }
+      } else {
+        addParsedTestCase(path)
+      }
+    } catch (e) {
+      // todo show error
+    }
+  }
+
   const bindEvents = () => {
     $('#languageType').on('change', function () {
       const languageType = $(this).val();
@@ -52,24 +128,20 @@
       const langSubtype = $(this).val();
       onSubtypeChanged($('#languageType').val(), langSubtype);
     })
-
-    // $("html").on("dragover", function(event) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    //   console.log('dragover', event);
-    // });
-    //
-    // $("html").on("dragleave", function(event) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    //   console.log('dragover', event);
-    // });
-
-    $("html").on("drop", function(event) {
-      event.preventDefault();
-      event.stopPropagation();
-      console.log('drop', event);
-    });
+    $('#customCommand').on('input', function () {
+      const helpBlock = $('.secure-folder-help-block')
+      helpBlock.addClass('hide')
+      if (!$(this).val().includes('.guides/secure')) {
+        helpBlock.removeClass('hide')
+      }
+    })
+    $('#newCasePath').on('input', function () {
+      const addCaseBtn = $('.add-case-btn')
+      addCaseBtn.prop('disabled', !$(this).val())
+    })
+    $('.add-case-btn').on('click', function () {
+      addTestCase($('#newCasePath').val())
+    })
   }
 
   const onLoad = async () => {
