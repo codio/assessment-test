@@ -153,13 +153,17 @@
         </div>
       </div>
     </div>
-    <div class="test-case-container">
+    <div class="test-case-container hide">
       <div class="settings-content-row-container test-case-controls-container">
         <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container test-case-add-case-container">
           <label for="newCasePath" class="codio-assessment-settings-form-label">Add case</label>
           <input id="newCasePath" name="newCasePath" class="codio-assessment-settings-form-input"/>
         </div>
-        <button class='add-case-btn codio-assessment-settings-button codio-assessment-settings-button--secondary'>Add case</button>
+        <button class='add-case-btn codio-assessment-settings-button codio-assessment-settings-button--secondary' disabled>Add case</button>
+      </div>
+      <h4>Test cases</h4>
+      <div class="test-case-noItems-block hide">
+        No test cases added
       </div>
       <div class="test-case-list"></div>
     </div>

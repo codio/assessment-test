@@ -1,4 +1,6 @@
 (function () {
+  const ICON_DELETE = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM8 9h8v10H8zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>'
+
   const LANG_TYPES = {
     JAVA: 'java',
     CUSTOM: 'custom',
@@ -72,17 +74,67 @@
 
   const onLanguageChanged = (language) => {
     $('.language-settings-container').addClass('hide')
+    const testsContainer = $('.test-case-container')
+    testsContainer.addClass('hide')
+    testsContainer.find('.test-case-list').empty()
+    if (language !== LANG_TYPES.CUSTOM) {
+      testsContainer.removeClass('hide')
+    }
     $(`.${language}-container`).removeClass('hide')
     const subtype = $(`#${language}LangSubtype`).val()
     onSubtypeChanged(language, subtype)
+
+    addParsedTestCase({filePath: 'assessment-test.js', className: 'assessment-test'});
+    addParsedTestCase({filePath: 'assessment-test.js', className: 'assessment-test'});
+    addParsedTestCase({filePath: 'assessment-test.js', className: 'assessment-test'});
   }
 
-  const addParsedTestCase = (path, info) => {
+  const addParsedTestCase = (info) => {
+    const path = info?.filePath || info
+    const className = info?.className
 
+    const list = $('.test-case-list')
+    const itemContainer = $('<div class="test-case-item" />')
+    itemContainer.data('path', path)
+    const infoContainer = $('<div class="test-case-item-info" />')
+    const pathInfoRow = $('<div class="test-case-info-row" />')
+    pathInfoRow.append('<div class="test-case-info-label">Path:</div>')
+    pathInfoRow.append(`<div class="test-case-info-text">${path}</div>`)
+    infoContainer.append(pathInfoRow)
+    if (className) {
+      const classInfoRow = $('<div class="test-case-info-row" />')
+      classInfoRow.append('<div class="test-case-info-label">Class name:</div>')
+      classInfoRow.append(`<div class="test-case-info-text">${className}</div>`)
+      infoContainer.append(classInfoRow)
+    }
+
+    const actionsContainer = $('<div class="test-case-item-actions" />')
+    const deleteBtn = $(`<button type="button" title="Delete test case" aria-label="Delete test case" class="test-case-delete-button">
+${ICON_DELETE}
+</button>`)
+    actionsContainer.append(deleteBtn)
+    itemContainer.append(infoContainer)
+    itemContainer.append(actionsContainer)
+    list.append(itemContainer)
+    updateTestsHelpBlockVisibility()
+  }
+
+  const updateTestsHelpBlockVisibility = () => {
+    const list = $('.test-case-list')
+    const hasItems = !!list.find('.test-case-item')[0]
+    const helpBlock = $('.test-case-noItems-block')
+    hasItems ? helpBlock.addClass('hide') : helpBlock.removeClass('hide')
+  }
+
+  const removeTestCase = (item) => {
+    // todo confirm removal
+    item.remove()
+    updateTestsHelpBlockVisibility()
   }
 
   const addTestCase = async (path) => {
-    if ($(`.test-case-item[data-path="${path}"]`)) {
+    console.log('add test case', path)
+    if ($(`.test-case-item[data-path="${path}"]`)[0]) {
       // todo already added warning
       return
     }
@@ -107,7 +159,7 @@
       if (LANG_TYPES.JAVA && subtype === SUBTYPES_BY_LANG.JAVA.STYLE) {
         try {
           const info = window.codioTestAssessment.javaGrammar.getJavaInfo(path, content)
-          addParsedTestCase(path, info)
+          addParsedTestCase(info)
         } catch (e) {
           // todo show errors
         }
@@ -141,6 +193,9 @@
     })
     $('.add-case-btn').on('click', function () {
       addTestCase($('#newCasePath').val())
+    })
+    $('.test-case-list').on('click', '.test-case-delete-button', function () {
+      removeTestCase($(this).closest('.test-case-item'));
     })
   }
 
