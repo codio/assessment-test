@@ -120,6 +120,8 @@
   const applySettings = (settings = {}) => {
     $('#instructions').val(settings.instructions || '');
     $('#timeout').val(settings.timeout || '40');
+    const config = settings.codeEnvConfig ? JSON.parse(settings.codeEnvConfig) : null
+    onLanguageChanged(config?.type || LANG_TYPES.CUSTOM)
   }
 
   const processMessage = (jsonData) => {
@@ -205,6 +207,7 @@ ${ICON_DELETE}
       return
     }
     try {
+      // todo need to implement get/set content for settings
       const {content} = await window.codioAssessmentsHelper.sendAndWait(
         window.codioAssessmentsHelper.METHODS.GET_FILE_CONTENT, {path}
       )
@@ -249,7 +252,7 @@ ${ICON_DELETE}
     $('#customCommand').on('input', function () {
       const helpBlock = $('.secure-folder-help-block')
       helpBlock.addClass('hide')
-      if (!$(this).val().includes('.guides/secure')) {
+      if ($(this).val().includes('.guides/secure')) {
         helpBlock.removeClass('hide')
       }
     })
