@@ -10,19 +10,19 @@
   }
 
   const SUBTYPES_BY_LANG = {
-    [LANG_TYPES.JAVA]: {
+    JAVA: {
       STYLE: 'style',
       JUNIT: 'junit'
     },
-    [LANG_TYPES.RUBY]: {
+    RUBY: {
       STYLE: 'style',
       RSPEC: 'rspec'
     },
-    [LANG_TYPES.PYTHON]: {
+    PYTHON: {
       STYLE: 'style',
       UNITTEST: 'unittest'
     },
-    [LANG_TYPES.JAVASCRIPT]: {
+    JAVASCRIPT: {
       JSHINT: 'jshint',
       JSLINT: 'jslint'
     }
@@ -34,6 +34,8 @@
     [LANG_TYPES.PYTHON]: ['py'],
     [LANG_TYPES.JAVASCRIPT]: ['js']
   }
+
+  const TEST_TIMEOUT = 300
 
   const getCodeEnvConfig = () => {
     const langType = $('#languageType').val()
@@ -108,6 +110,8 @@
       data.command = $('#customCommand').val()
     } else {
       data.codeEnvConfig = JSON.stringify(getCodeEnvConfig() || {})
+      data.command = 'python /usr/share/codio/assessments/assessments.py'
+      data.timeout = TEST_TIMEOUT
     }
     return data;
   }
@@ -230,7 +234,7 @@ ${ICON_DELETE}
         // todo error 'Incorrect file type, should be: ' + typeToExtension[type].join(' ')
         return
       }
-      if (LANG_TYPES.JAVA && subtype === SUBTYPES_BY_LANG.JAVA.STYLE) {
+      if (langType === LANG_TYPES.JAVA && subtype === SUBTYPES_BY_LANG.JAVA.STYLE) {
         try {
           const info = window.codioTestAssessment.javaGrammar.getJavaInfo(path, content)
           addParsedTestCase(info)
