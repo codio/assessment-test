@@ -135,6 +135,10 @@
         case window.codioAssessmentsHelper.METHODS.GET_SETTINGS_RESPONSE:
           applySettings(data.settings);
           break;
+        case window.codioAssessmentsHelper.METHODS.CALLBACK: {
+          window.codioAssessmentsHelper.processCallback(data)
+          break
+        }
       }
     } catch {}
   }
@@ -212,7 +216,7 @@ ${ICON_DELETE}
         window.codioAssessmentsHelper.METHODS.GET_FILE_CONTENT, {path}
       )
       const langType = $('#languageType').val()
-      if (EXTENSIONS_BY_TYPE[langType]) {
+      if (!EXTENSIONS_BY_TYPE[langType]) {
         return
       }
       const subtype = $(`#${langType}LangSubtype`).val()
@@ -222,6 +226,7 @@ ${ICON_DELETE}
         return
       }
       if (!EXTENSIONS_BY_TYPE[langType].includes(ext)) {
+        console.error(`Ext ${ext} not supported`)
         // todo error 'Incorrect file type, should be: ' + typeToExtension[type].join(' ')
         return
       }
