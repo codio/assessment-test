@@ -92,6 +92,7 @@
   }
 
   const collectSettings = () => {
+    const errors = []
     const instructions = $('#instructions').val()
     const timeout = parseInt($('#timeout').val(), 10);
     const langType = $('#languageType').val()
@@ -108,12 +109,17 @@
     }
     if (langType === LANG_TYPES.CUSTOM) {
       data.command = $('#customCommand').val()
+      !data.command && errors.push('Command field must be completed')
     } else {
-      data.codeEnvConfig = JSON.stringify(getCodeEnvConfig() || {})
+      const config = getCodeEnvConfig() || {}
+      data.codeEnvConfig = JSON.stringify(config)
       data.command = 'python /usr/share/codio/assessments/assessments.py'
       data.timeout = TEST_TIMEOUT
+      if (!config.files?.length) {
+        errors.push('Add a test case')
+      }
     }
-    return data;
+    return {data, errors};
   }
 
   const exportSettings = () => {

@@ -12,9 +12,11 @@
 </head>
 <body>
   <div id="settings-content" class="codio-assessment-settings-content">
-    <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container">
+    <div class="codio-assessment-settings-form-control">
       <label for="instructions" class="codio-assessment-settings-form-label">Instructions</label>
-      <textarea id="instructions" name="instructions" rows="4" class="codio-assessment-settings-form-input"></textarea>
+      <div class="codio-assessment-settings-form-input-container">
+        <textarea id="instructions" name="instructions" rows="4" class="codio-assessment-settings-form-input"></textarea>
+      </div>
     </div>
     <div class="settings-content-row-container">
       <div class="codio-assessment-settings-form-control codio-assessment-settings-form-select-container">
@@ -29,15 +31,19 @@
           </select>
         </div>
       </div>
-      <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container codio-assessment-settings-form-control--fillWidth">
+      <div class="codio-assessment-settings-form-control codio-assessment-settings-form-control--fillWidth">
         <label for="timeout" class="codio-assessment-settings-form-label">Timeout</label>
-        <input id="timeout" name="timeout" class="codio-assessment-settings-form-input" type="number"/>
+        <div class="codio-assessment-settings-form-input-container">
+          <input id="timeout" name="timeout" class="codio-assessment-settings-form-input" type="number"/>
+        </div>
       </div>
     </div>
     <div class="language-settings-container custom-container hide">
-      <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container">
+      <div class="codio-assessment-settings-form-control">
         <label for="customCommand" class="codio-assessment-settings-form-label">Command</label>
-        <input id="customCommand" name="customCommand" class="codio-assessment-settings-form-input"/>
+        <div class="codio-assessment-settings-form-input-container">
+          <input id="customCommand" name="customCommand" class="codio-assessment-settings-form-input"/>
+        </div>
       </div>
       <div class="secure-folder-help-block hide">
         Script will be executed isolated from user container <a href='https://docs.codio.com/instructors/authoring/assessments/auto-grade-scripts.html#secure-scripts' target='_blank'>click here</a>
@@ -65,9 +71,11 @@
         </div>
       </div>
       <div class="lang-subtype-settings-container lang-subtype-java-style-settings settings-content-row-container hide">
-        <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container codio-assessment-settings-form-control--fillWidth">
+        <div class="codio-assessment-settings-form-control codio-assessment-settings-form-control--fillWidth">
           <label for="javaStyleConfigPath" class="codio-assessment-settings-form-label">Config path</label>
-          <input id="javaStyleConfigPath" name="javaStyleConfigPath" class="codio-assessment-settings-form-input"/>
+          <div class="codio-assessment-settings-form-input-container">
+            <input id="javaStyleConfigPath" name="javaStyleConfigPath" class="codio-assessment-settings-form-input"/>
+          </div>
         </div>
         <div class="codio-assessment-settings-form-control codio-assessment-settings-form-select-container lang-subtype-container">
           <label for="javaCheckStyleVersion" class="codio-assessment-settings-form-label">CheckStyle version</label>
@@ -94,24 +102,32 @@
               </select>
             </div>
           </div>
-          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container codio-assessment-settings-form-control--fillWidth">
+          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-control--fillWidth">
             <label for="javaJunitSourcePath" class="codio-assessment-settings-form-label">JUnit source path</label>
-            <input id="javaJunitSourcePath" name="javaJunitSourcePath" class="codio-assessment-settings-form-input"/>
+            <div class="codio-assessment-settings-form-input-container">
+              <input id="javaJunitSourcePath" name="javaJunitSourcePath" class="codio-assessment-settings-form-input"/>
+            </div>
           </div>
         </div>
         <div class="settings-content-row-container">
-          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container codio-assessment-settings-form-control--fillWidth">
+          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-control--fillWidth">
             <label for="javaJunitTestsSourcePath" class="codio-assessment-settings-form-label">Tests source path</label>
-            <input id="javaJunitTestsSourcePath" name="junitTestsSourcePath" class="codio-assessment-settings-form-input"/>
+            <div class="codio-assessment-settings-form-input-container">
+              <input id="javaJunitTestsSourcePath" name="junitTestsSourcePath" class="codio-assessment-settings-form-input"/>
+            </div>
           </div>
-          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container codio-assessment-settings-form-control--fillWidth">
+          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-control--fillWidth">
             <label for="javaJunitLibraryPath" class="codio-assessment-settings-form-label">Library path</label>
-            <input id="javaJunitLibraryPath" name="javaJunitLibraryPath" class="codio-assessment-settings-form-input"/>
+            <div class="codio-assessment-settings-form-input-container">
+              <input id="javaJunitLibraryPath" name="javaJunitLibraryPath" class="codio-assessment-settings-form-input"/>
+            </div>
           </div>
         </div>
-        <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container">
+        <div class="codio-assessment-settings-form-control">
           <label for="javaJunitWorkingDirectory" class="codio-assessment-settings-form-label">Working directory</label>
-          <input id="javaJunitWorkingDirectory" name="javaJunitWorkingDirectory" class="codio-assessment-settings-form-input"/>
+          <div class="codio-assessment-settings-form-input-container">
+            <input id="javaJunitWorkingDirectory" name="javaJunitWorkingDirectory" class="codio-assessment-settings-form-input"/>
+          </div>
         </div>
       </div>
     </div>
@@ -127,18 +143,24 @@
       </div>
       <div class="lang-subtype-settings-container lang-subtype-python-unittest-settings hide">
         <div class="settings-content-row-container">
-          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container codio-assessment-settings-form-control--fillWidth">
+          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-control--fillWidth">
             <label for="pythonUnittestExecutable" class="codio-assessment-settings-form-label">Python executable</label>
-            <input id="pythonUnittestExecutable" name="pythonUnittestExecutable" class="codio-assessment-settings-form-input"/>
+            <div class="codio-assessment-settings-form-input-container">
+              <input id="pythonUnittestExecutable" name="pythonUnittestExecutable" class="codio-assessment-settings-form-input"/>
+            </div>
           </div>
-          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container codio-assessment-settings-form-control--fillWidth">
+          <div class="codio-assessment-settings-form-control codio-assessment-settings-form-control--fillWidth">
             <label for="pythonUnittestWorkingDirectory" class="codio-assessment-settings-form-label">Python working directory</label>
-            <input id="pythonUnittestWorkingDirectory" name="pythonUnittestWorkingDirectory" class="codio-assessment-settings-form-input"/>
+            <div class="codio-assessment-settings-form-input-container">
+              <input id="pythonUnittestWorkingDirectory" name="pythonUnittestWorkingDirectory" class="codio-assessment-settings-form-input"/>
+            </div>
           </div>
         </div>
-        <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container">
+        <div class="codio-assessment-settings-form-control">
           <label for="pythonUnittestStudentFolder" class="codio-assessment-settings-form-label">Student folder</label>
-          <input id="pythonUnittestStudentFolder" name="pythonUnittestStudentFolder" class="codio-assessment-settings-form-input"/>
+          <div class="codio-assessment-settings-form-input-container">
+            <input id="pythonUnittestStudentFolder" name="pythonUnittestStudentFolder" class="codio-assessment-settings-form-input"/>
+          </div>
         </div>
       </div>
     </div>
@@ -155,9 +177,11 @@
     </div>
     <div class="test-case-container hide">
       <div class="settings-content-row-container test-case-controls-container">
-        <div class="codio-assessment-settings-form-control codio-assessment-settings-form-input-container test-case-add-case-container">
+        <div class="codio-assessment-settings-form-control test-case-add-case-container">
           <label for="newCasePath" class="codio-assessment-settings-form-label">Add case</label>
-          <input id="newCasePath" name="newCasePath" class="codio-assessment-settings-form-input"/>
+          <div class="codio-assessment-settings-form-input-container">
+            <input id="newCasePath" name="newCasePath" class="codio-assessment-settings-form-input"/>
+          </div>
         </div>
         <button class='add-case-btn codio-assessment-settings-button codio-assessment-settings-button--secondary' disabled>Add case</button>
       </div>
