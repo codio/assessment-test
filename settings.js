@@ -1,5 +1,6 @@
 (function () {
   const ICON_DELETE = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM8 9h8v10H8zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>'
+  let instructionsEditor = null
 
   const LANG_TYPES = {
     JAVA: 'java',
@@ -93,7 +94,7 @@
 
   const collectSettings = () => {
     const errors = []
-    const instructions = $('#instructions').val()
+    const instructions = instructionsEditor.getContent()
     const timeout = parseInt($('#timeout').val(), 10);
     const langType = $('#languageType').val()
     const subtype = $(`#${langType}LangSubtype`).val()
@@ -128,7 +129,7 @@
   }
 
   const applySettings = (settings = {}) => {
-    $('#instructions').val(settings.instructions || '');
+    instructionsEditor.setContent(settings.instructions || '')
     $('#timeout').val(settings.timeout || '40');
     const config = settings.codeEnvConfig ? JSON.parse(settings.codeEnvConfig) : null
     onLanguageChanged(config?.type || LANG_TYPES.CUSTOM)
@@ -288,6 +289,7 @@ ${ICON_DELETE}
     window.codioAssessmentsHelper.send(window.codioAssessmentsHelper.METHODS.GET_SETTINGS)
 
     bindEvents()
+    instructionsEditor = window.codioAssessmentsHelper.initializeMarkdownEditor('instructions', 'instructions-command-bar')
   }
 
   window.addEventListener('load', onLoad);
